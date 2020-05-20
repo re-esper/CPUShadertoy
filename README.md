@@ -20,3 +20,7 @@ This project is still incomplete and working in progress.
 
 [Glow City](https://github.com/re-esper/CPUShadertoy/blob/master/program_city.ispc) ([original](https://www.shadertoy.com/view/XlsyWB))  
 <img src="https://github.com/re-esper/CPUShadertoy/blob/master/screenshot/city.png" width="50%" height="50%">
+
+### Performance
+
+I got around **18FPS**, running "Glow City" on my Intel Core i7-7700K. As a comparison, around **31FPS** when using GPU(HD 630) on shadertoy.com(Chrome).
