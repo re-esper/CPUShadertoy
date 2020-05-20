@@ -1,3 +1,5 @@
+// https://www.shadertoy.com/view/XlsyWB
+
 const float streetDistance = 0.6;
 const vec3 streetColor = { 4.0, 8.0, 10.0 };
 

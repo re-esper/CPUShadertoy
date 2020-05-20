@@ -1,3 +1,5 @@
+// https://www.shadertoy.com/view/4lSXzR
+
 //yibojiang, 2015-8-30
 #define pi 3.1415926
 #define flyCount 40

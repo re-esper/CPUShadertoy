@@ -1,3 +1,5 @@
+// https://www.shadertoy.com/view/4dX3Rn
+
 inline void mainImage(vec4& fragColor, vec2 fragCoord)
 {
     vec2 p = (2.0*fragCoord-iResolution.xy)/min(iResolution.y,iResolution.x);
