@@ -487,7 +487,7 @@ inline mat3 inverse(mat3& m) {
               vec3(b21, (-a21 * a00 + a01 * a20), (a11 * a00 - a01 * a10)) / det);
 }
 
-inline mat4 inverse(mat4 m) {
+inline mat4 inverse(mat4& m) {
     float
         a00 = m.m[0][0], a01 = m.m[0][1], a02 = m.m[0][2], a03 = m.m[0][3],
         a10 = m.m[1][0], a11 = m.m[1][1], a12 = m.m[1][2], a13 = m.m[1][3],
