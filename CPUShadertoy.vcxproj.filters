@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tasksys.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glsl.ispc" />
+    <None Include="program_flower.ispc" />
+    <None Include="program_city.ispc" />
+    <None Include="program_descent3d.ispc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="shadertoy.ispc" />
+  </ItemGroup>
+</Project>
