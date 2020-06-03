@@ -7,7 +7,7 @@ This project is highly inspired from zigguratvertigo's [hlsl-to-ispc](https://gi
 
 This project is still incomplete and working in progress.
 
-### Showcases
+## Showcases
 
 [Descent 3D](https://github.com/re-esper/CPUShadertoy/blob/master/program_descent3d.ispc) ([original](https://www.shadertoy.com/view/wdfGW4) Shadertoy's "Shader of the Week" for now)  
 <img src="https://github.com/re-esper/CPUShadertoy/blob/master/screenshot/descent.png" width="50%" height="50%">
@@ -21,6 +21,6 @@ This project is still incomplete and working in progress.
 [Glow City](https://github.com/re-esper/CPUShadertoy/blob/master/program_city.ispc) ([original](https://www.shadertoy.com/view/XlsyWB))  
 <img src="https://github.com/re-esper/CPUShadertoy/blob/master/screenshot/city.png" width="50%" height="50%">
 
-### Performance
+## Performance
 
 I got around **18FPS**, running "Glow City" on my Intel Core i7-7700K. As a comparison, around **31FPS** when using GPU(HD 630) on shadertoy.com(Chrome).
