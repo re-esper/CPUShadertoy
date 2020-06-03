@@ -260,10 +260,11 @@ inline vec2 abs(vec2 f) { return vec2( abs(f.x), abs(f.y) ); }
 inline vec3 abs(vec3 f) { return vec3( abs(f.x), abs(f.y), abs(f.z) ); }
 inline vec4 abs(vec4 f) { return vec4( abs(f.x), abs(f.y), abs(f.z), abs(f.w) ); }
 
-inline float sign(float f) { return f < 0 ? -1 : 1; }
-inline vec2 sign(vec2 f) { return vec2( f.x < 0 ? -1 : 1, f.y < 0 ? -1 : 1 ); }
-inline vec3 sign(vec3 f) { return vec3( f.x < 0 ? -1 : 1, f.y < 0 ? -1 : 1, f.z < 0 ? -1 : 1 ); }
-inline vec4 sign(vec4 f) { return vec4( f.x < 0 ? -1 : 1, f.y < 0 ? -1 : 1, f.z < 0 ? -1 : 1, f.w < 0 ? -1 : 1 ); }
+inline float sign(float f) { return f == 0 ? 0 : (f < 0 ? -1 : 1); }
+inline vec2 sign(vec2 f) { return vec2( f.x == 0 ? 0 : (f.x < 0 ? -1 : 1), f.y == 0 ? 0 : (f.y < 0 ? -1 : 1) ); }
+inline vec3 sign(vec3 f) { return vec3( f.x == 0 ? 0 : (f.x < 0 ? -1 : 1), f.y == 0 ? 0 : (f.y < 0 ? -1 : 1), f.z == 0 ? 0 : (f.z < 0 ? -1 : 1) ); }
+inline vec4 sign(vec4 f) { return vec4( f.x == 0 ? 0 : (f.x < 0 ? -1 : 1), f.y == 0 ? 0 : (f.y < 0 ? -1 : 1),
+        f.z == 0 ? 0 : (f.z < 0 ? -1 : 1), f.w == 0 ? 0 : (f.w < 0 ? -1 : 1) ); }
 
 inline vec2 floor(vec2 f) { return vec2( floor(f.x), floor(f.y) ); }
 inline vec3 floor(vec3 f) { return vec3( floor(f.x), floor(f.y),floor(f.z) ); }
@@ -338,7 +339,6 @@ inline vec4 smoothstep(vec4 a, vec4 b, float x) { return vec4( smoothstep(a.x, b
 // Geometric Functions
 
 inline float dot(vec2 a, vec2 b) { return a.x * b.x + a.y * b.y; }
-inline float dot(vec2 a, const uniform vec2& b) { return a.x * b.x + a.y * b.y; }
 inline float dot(vec3 a, vec3 b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
 inline float dot(vec4 a, vec4 b) { return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w; }
 
