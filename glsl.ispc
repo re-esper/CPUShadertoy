@@ -342,18 +342,18 @@ inline float dot(vec2 a, vec2 b) { return a.x * b.x + a.y * b.y; }
 inline float dot(vec3 a, vec3 b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
 inline float dot(vec4 a, vec4 b) { return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w; }
 
+inline float length(vec2 p) { return sqrt(dot(p, p)); }
+inline float length(vec3 p) { return sqrt(dot(p, p)); }
+inline float length(vec4 p) { return sqrt(dot(p, p)); }
+
 inline float distance(float a, float b) { return abs(a - b); }
-inline float distance(vec2 a, vec2 b) { return sqrt(dot(a, b)); }
-inline float distance(vec3 a, vec3 b) { return sqrt(dot(a, b)); }
-inline float distance(vec4 a, vec4 b) { return sqrt(dot(a, b)); }
+inline float distance(vec2 a, vec2 b) { return length(a - b); }
+inline float distance(vec3 a, vec3 b) { return length(a - b); }
+inline float distance(vec4 a, vec4 b) { return length(a - b); }
 
 inline vec3 cross(vec3 a, vec3 b) {
     return vec3( a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x );
 }
-
-inline float length(vec2 p) { return sqrt(dot(p, p)); }
-inline float length(vec3 p) { return sqrt(dot(p, p)); }
-inline float length(vec4 p) { return sqrt(dot(p, p)); }
 
 inline vec2 normalize(vec2 f) { return f / length(f); }
 inline vec3 normalize(vec3 f) { return f / length(f); }
