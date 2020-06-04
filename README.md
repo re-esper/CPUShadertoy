@@ -1,7 +1,7 @@
 # CPU Shadertoy
 Run shadertoy shaders on CPU with multithreading and SIMD. Just for fun and learning about [ISPC](https://ispc.github.io/), the Intel SPMD program compiler.
 
-With this project, you can just copy and paste shadertoy shaders, run it on CPU with **no** or **little** modification, and get high performance.
+With this project, you can just **copy-and-paste** shadertoy shaders, run it on CPU with **no** or **little** modification, and get high performance.
 
 This project is highly inspired from zigguratvertigo's [hlsl-to-ispc](https://github.com/zigguratvertigo/hlsl-to-ispc).
 
