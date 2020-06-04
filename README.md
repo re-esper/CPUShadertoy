@@ -9,7 +9,7 @@ This project is still incomplete and working in progress.
 
 ## Showcases
 
-[Descent 3D](https://github.com/re-esper/CPUShadertoy/blob/master/program_descent3d.ispc) ([original](https://www.shadertoy.com/view/wdfGW4) Shadertoy's "Shader of the Week" for now)  
+[Descent 3D](https://github.com/re-esper/CPUShadertoy/blob/master/program_descent3d.ispc) (Shadertoy's "Shader of the Week" for now  [original](https://www.shadertoy.com/view/wdfGW4))  
 <img src="https://github.com/re-esper/CPUShadertoy/blob/master/screenshot/descent.png" width="50%" height="50%">
 
 [Warping - texture](https://github.com/re-esper/CPUShadertoy/blob/master/program_warptexture.ispc) ([original](https://www.shadertoy.com/view/Xsl3zn))  
