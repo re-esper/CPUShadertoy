@@ -8,12 +8,17 @@
 #include <ctime>
 #include <stdio.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include "shadertoy_ispc.h"
 
 using namespace ispc;
 
 const int nWidth = 800;
 const int nHeight = 450;
+
+#define TEXTURE_FILE "texture.jpg"
 
 static float* fBuffer;
 static unsigned char* bBuffer;
@@ -27,8 +32,9 @@ static clock_t thenTime = 0;
 static clock_t fpsCountStartTime = 0;
 static unsigned int frameCount = 0;
 
+static CombinedImageSampler iChannel0Sampler;
 
-void appInitialize() {
+bool appInitialize() {
     fBuffer = new float[3 * nWidth * nHeight];
     bBuffer = new unsigned char[3 * nWidth * nHeight];
 
@@ -43,11 +49,35 @@ void appInitialize() {
 
     startTime = clock();
     thenTime = startTime;
+
+    // load texture iChannel0
+    stbi_uc* result = 0;
+    int ncomp = 0;
+    result = stbi_load(TEXTURE_FILE, &iChannel0Sampler.width, &iChannel0Sampler.height, &ncomp, STBI_rgb_alpha);
+    if (result) {
+        uint8_t* texdata = (uint8_t*)result;
+        iChannel0Sampler.data = new float[iChannel0Sampler.width * iChannel0Sampler.height * 4];
+        for (uint32_t y = 0; y < iChannel0Sampler.height; y++) {
+            for (uint32_t x = 0; x < iChannel0Sampler.width; x++) {
+                uint32_t idx = (y * iChannel0Sampler.width + x) * 4;
+                for (uint32_t n = 0; n < 4; n++) {
+                    iChannel0Sampler.data[idx + n] = texdata[idx + n] / 255.f;
+                }
+            }
+        }
+        stbi_image_free(result);
+    }
+    else {
+        MessageBoxA(NULL, "Can't load texture file:  " TEXTURE_FILE, "Error", MB_OK);
+        return false;
+    }
+    return true;
 }
 
 void appFinalize() {
     delete[] fBuffer;
     delete[] bBuffer;
+    delete[] iChannel0Sampler.data;
 }
 
 inline unsigned char clamp(float f) {
@@ -80,7 +110,7 @@ void appMainLoop() {
     float iDeltaTime = ((float)now - thenTime) / CLOCKS_PER_SEC;
     thenTime = now;
 
-    shadertoy_ispc(nWidth, nHeight, fBuffer, iTime, iMouse);
+    shadertoy_ispc(nWidth, nHeight, fBuffer, iTime, iMouse, iChannel0Sampler);
     present();
     frameCount++;
 
@@ -173,7 +203,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     SetActiveWindow(hwnd);
     SetForegroundWindow(hwnd);
 
-    appInitialize();
+    if (!appInitialize()) return 1;
 
     while (TRUE) {
         MSG msg;
@@ -186,4 +216,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     appFinalize();
+    return 0;
 }

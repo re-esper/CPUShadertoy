@@ -557,3 +557,44 @@ inline mat4 transpose(mat4& m) {
 }
 
 // Vector Relational Functions
+
+
+// sampler
+struct CombinedImageSampler {
+    uniform int width;
+    uniform int height;
+    uniform float* data;
+};
+vec4 texture(uniform CombinedImageSampler& sampler, const vec2 uv) {
+    float u = uv.x;
+    float v = uv.y;
+
+#if TEXTURE_WRAPPING == GL_REPEAT
+    u = mod(u, 1.0f);
+    v = mod(v, 1.0f);
+#elif TEXTURE_WRAPPING == GL_MIRRORED_REPEAT
+    if (trunc(u) & 1)
+        u = frac(u);
+    else
+        u = 1.0f - frac(u);
+    if (trunc(v) & 1)
+        v = frac(v);
+    else
+        v = 1.0f - frac(v);
+#elif TEXTURE_WRAPPING == GL_CLAMP_TO_EDGE
+    u = clamp(u, 0.0f, 1.0f);
+    v = clamp(v, 0.0f, 1.0f);
+#else  // TEXTURE_WRAPPING == GL_CLAMP_TO_BORDER
+    if (u > 1.0f || u < 0.0f || v > 1.0f || v < 0.0f)
+        return vec4(0, 0, 0, 0);
+#endif
+
+#if TEXTURE_FILTERING == GL_NEAREST
+    u *= (sampler.width - 1);
+    v *= (sampler.height - 1);
+    int index = 4 * (round(v) * sampler.width + round(u));
+    return vec4(sampler.data[index], sampler.data[index + 1], sampler.data[index + 2], sampler.data[index + 3]);
+#else // TEXTURE_FILTERING == GL_LINEAR
+    #error "GL_LINEAR texture filtering not implement!"
+#endif
+}

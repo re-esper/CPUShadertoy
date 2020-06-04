@@ -186,6 +186,11 @@
     <CustomBuild Include="shadertoy.ispc">
       <FileType>Document</FileType>
     </CustomBuild>
+    <None Include="program_flower2.ispc" />
+    <None Include="program_warptexture.ispc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shadertoy_ispc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

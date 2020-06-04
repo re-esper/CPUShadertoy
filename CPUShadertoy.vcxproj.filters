@@ -9,8 +9,13 @@
     <None Include="program_flower.ispc" />
     <None Include="program_city.ispc" />
     <None Include="program_descent3d.ispc" />
+    <None Include="program_warptexture.ispc" />
+    <None Include="program_flower2.ispc" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="shadertoy.ispc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shadertoy_ispc.h" />
   </ItemGroup>
 </Project>
