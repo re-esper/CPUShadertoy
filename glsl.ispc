@@ -565,6 +565,12 @@ struct CombinedImageSampler {
     uniform int height;
     uniform float* data;
 };
+
+inline vec4 getSampleColor(uniform CombinedImageSampler& sampler, int u, int v) {
+    int index = 4 * (v * sampler.width + u);
+    return vec4(sampler.data[index], sampler.data[index + 1], sampler.data[index + 2], sampler.data[index + 3]);
+}
+
 vec4 texture(uniform CombinedImageSampler& sampler, const vec2 uv) {
     float u = uv.x;
     float v = uv.y;
@@ -589,12 +595,28 @@ vec4 texture(uniform CombinedImageSampler& sampler, const vec2 uv) {
         return vec4(0, 0, 0, 0);
 #endif
 
-#if TEXTURE_FILTERING == GL_NEAREST
     u *= (sampler.width - 1);
     v *= (sampler.height - 1);
-    int index = 4 * (round(v) * sampler.width + round(u));
-    return vec4(sampler.data[index], sampler.data[index + 1], sampler.data[index + 2], sampler.data[index + 3]);
+
+#if TEXTURE_FILTERING == GL_NEAREST
+    return getSampleColor(sampler, round(u), round(v));
 #else // TEXTURE_FILTERING == GL_LINEAR
-    #error "GL_LINEAR texture filtering not implement!"
+    int u0 = trunc(u);
+    int v0 = trunc(v);
+    int u1 = u0 == sampler.width - 1 ? u0 : u0 + 1;
+    int v1 = v0 == sampler.height - 1 ? v0 : v0 + 1;
+    vec4 c00 = getSampleColor(sampler, u0, v0);
+    vec4 c10 = getSampleColor(sampler, u1, v0);
+    vec4 c01 = getSampleColor(sampler, u0, v1);
+    vec4 c11 = getSampleColor(sampler, u1, v1);
+    float ufract = fract(u);
+    float ufractinv = 1 - ufract;
+    float vfract = fract(v);
+    float vfractinv = 1 - vfract;
+    float w00 = ufractinv * vfractinv;
+    float w10 = ufract * vfractinv;
+    float w01 = ufractinv * vfract;
+    float w11 = ufract * vfract;
+    return c00 * w00 + c10 * w10 + c01 * w01 + c11 * w11;
 #endif
 }

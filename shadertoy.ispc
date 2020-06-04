@@ -1,10 +1,13 @@
-#define GL_REPEAT               0
-#define GL_MIRRORED_REPEAT      1
-#define GL_CLAMP_TO_EDGE        2
-#define GL_CLAMP_TO_BORDER      3
-#define GL_NEAREST              0
-#define GL_LINEAR               1
-
+enum {
+    GL_REPEAT = 0,
+    GL_MIRRORED_REPEAT,
+    GL_CLAMP_TO_EDGE,
+    GL_CLAMP_TO_BORDER
+};
+enum {
+    GL_NEAREST = 0,
+    GL_LINEAR
+};
 #define TEXTURE_WRAPPING        GL_REPEAT
 #define TEXTURE_FILTERING       GL_NEAREST
 
@@ -13,7 +16,6 @@
 uniform float iTime;
 uniform vec2 iResolution;
 uniform vec4 iMouse;
-
 uniform CombinedImageSampler iChannel0;
 
 //#include "program_flower.ispc"
@@ -51,7 +53,7 @@ export void shadertoy_ispc(uniform int width, uniform int height, uniform float 
     iResolution = vec2(width, height);
     iTime = time;
     iMouse.x = mouse[0]; iMouse.y = mouse[1]; iMouse.z = mouse[2]; iMouse.w = mouse[3];
-	iChannel0 = channel0;
+    iChannel0 = channel0;
 
     uniform int span = 16;
     launch[height/span] shadertoy_scanline(dx, dy, width, height, span, output);
